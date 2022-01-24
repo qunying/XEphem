@@ -28,13 +28,25 @@ ifndef MOTIFL
 MOTIFL = /usr/lib
 endif
 
-# for linux and Apple OS X
+# For Linux and Apple OS X
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+  PLATI :=
+  PLATL :=
+endif
+ifeq ($(UNAME_S),Darwin)
+  PLATI := -I/opt/X11/include -I/usr/local/opt/openssl@3/include
+  PLATL := -L/opt/X11/lib -L/usr/local/opt/openssl@3/lib
+  LASTLIB := xprint_fake.o
+endif
+
 CC = gcc
 CLDFLAGS = -g
-CFLAGS = $(LIBINC) $(CLDFLAGS) -O2 -Wall -I$(MOTIFI) -I/opt/X11/include
-LDFLAGS = $(LIBLNK) $(CLDFLAGS) -L$(MOTIFL) -L/opt/X11/lib
+CFLAGS = $(LIBINC) $(CLDFLAGS) -O2 -Wall -I$(MOTIFI) $(PLATI)
+LDFLAGS = $(LIBLNK) $(CLDFLAGS) -L$(MOTIFL) $(PLATL)
 XLIBS = -lXm -lXt -lXext -lXmu -lX11
-LIBS = $(XLIBS) $(LIBLIB) -lm -lssl
+LIBS = $(XLIBS) $(LIBLIB) -lm -lssl $(LASTLIB)
 
 # static linking on Apple using X11 libs from ports
 # CC = gcc
@@ -183,7 +195,8 @@ OBJS =			\
 	xe2.o		\
 	xe3.o		\
 	xephem.o	\
-	xmisc.o
+	xmisc.o		\
+	xprint_fake.o
 
 all: libs xephem xephem.1
 

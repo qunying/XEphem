@@ -65,7 +65,7 @@
 #include <X11/Intrinsic.h>
 #include <X11/Shell.h>
 #include <X11/Xatom.h>
-#include <X11/extensions/Print.h>
+/* #include <X11/extensions/Print.h> */
 #include <Xm/XmStrDefs.h>
 #include <Xm/XmStrDefs22.h>
 #include <Xm/XmStrDefs23.h>
@@ -847,7 +847,7 @@ typedef struct
 {
     int		reason;	   /* XmCR_START_JOB, XmCR_END_JOB, XmCR_PAGE_SETUP */
     XEvent	*event;
-    XPContext	context;
+    /* XPContext	context; */
     Boolean	last_page; /* in_out */
     XtPointer	detail;
 } XmPrintShellCallbackStruct;

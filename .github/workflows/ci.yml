@@ -18,3 +18,14 @@ jobs:
       run: grep 'sudo apt install' INSTALL | sed 's/\$//' | sh
     - name: Compile
       run: make -C GUI/xephem
+
+  compile-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install OpenSSL
+      run: brew install openssl
+    - name: Install XQuartz
+      run: brew install xquartz --cask
+    - name: Compile
+      run: make -C GUI/xephem MOTIF=../../libXm/osx
