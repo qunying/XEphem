@@ -32,10 +32,8 @@ endif
 
 UNAME_S = $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
-  PLATI = -I/usr/local/opt/openssl@3/include
-#  -I/opt/X11/include
-  PLATL = -L/usr/local/opt/openssl@3/lib
-# -L/opt/X11/lib
+  PLATI = -I/usr/local/opt/openssl@3/include -I/opt/X11/include
+  PLATL = -L/usr/local/opt/openssl@3/lib -L/opt/X11/lib
 endif
 
 CC = gcc
