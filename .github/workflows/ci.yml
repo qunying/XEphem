@@ -10,7 +10,7 @@ on:
       - master
 
 jobs:
-  compile-linux:
+  compile-linux-and-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -18,6 +18,8 @@ jobs:
       run: grep 'sudo apt install' INSTALL | sed 's/\$//' | sh
     - name: Compile
       run: make -C GUI/xephem
+    - name: Test
+      run: make -C tests
 
   compile-macos:
     runs-on: macos-latest
